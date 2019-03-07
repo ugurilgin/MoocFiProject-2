@@ -1,10 +1,10 @@
 # Is it easier to fix the application than to detect attacks?
 It is obviously best not to have any exploitable vulnerabilities at all. Then again vulnerabilities are always unknown at first so having intrusion detection and to verify the system integrity is at least some kind of countermeasure, especially if the detecting NIDS/HIDS can actively block traffic besides producing alerts.
-The possibility of fixing applications depends together with other factors for example on whether the software is open source or proprietary and if it is actively maintained or not. A common scenario is old proprietary software which only works on older systems leading to unpatched systems running with known vulnerabilities.
+* The possibility of fixing applications depends together with other factors for example on whether the software is open source or proprietary and if it is actively maintained or not. A common scenario is old proprietary software which only works on older systems leading to unpatched systems running with known vulnerabilities.
 In the case of systems based solely on open source I would argue that it is always easier to fix the application but to become aware of vulnerabilities that needs to be fixed analysing anomalies in systems and network traffic is a great help.
-1. Portscan of Metasploitable3
+# 1. Portscan of Metasploitable3
 The system was set up and snort installed in the virtual machine with the snapshot-2990 and community rule sets. Custom nonstandard HTTP ports like 8484 was added to HTTP_PORTS, http_inspect_server and the stream5_tcp preprocessor in snort.conf as they were not included by default.
-# nmap -sS -p 1-65535 -T4 -v 192.168.78.2
+* => nmap -sS -p 1-65535 -T4 -v 192.168.78.2
 Initial TCP SYN port scan showed 17 open ports:
 $ nmap -sV -p 21,22,80,1617,3000,4848,5985,8022,8080,8282,8484,\
   8585,9200,49153,49154,49202,49203 -v 192.168.78.2
