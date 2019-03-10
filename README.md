@@ -8,7 +8,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Initial TCP SYN port scan showed 17 open ports:
  - `$ nmap -sV -p 21,22,80,1617,3000,4848,5985,8022,8080,8282,8484,\
   8585,9200,49153,49154,49202,49203 -v 192.168.78.2`
-
+~~~javascript
 * PORT      STATE SERVICE       VERSION
 * 21/tcp    open  ftp           Microsoft ftpd
 * 22/tcp    open  ssh           OpenSSH 7.1 (protocol 2.0)
@@ -30,6 +30,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 * Slow comprehensive nmapscan additionally revealed:
 * 161/udp   open  snmp     SNMPv1 server (public)
+~~~
 * Snort produced no alerts for any of the scans even when enabling sfportscan preprocessor in snort.conf and indicator-scan.rules:28. There are nmap-specific rules in deleted.rules but I decided to move on.
 # 2. Gathering information using SNMP
 2.1 msfconsole
