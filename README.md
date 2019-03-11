@@ -34,11 +34,11 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Snort produced no alerts for any of the scans even when enabling sfportscan preprocessor in snort.conf and indicator-scan.rules:28. There are nmap-specific rules in deleted.rules but I decided to move on.
 # 2. Gathering information using SNMP
 2.1 msfconsole
-~~~javascript
+
 * ` msf > use auxiliary/scanner/snmp/snmp_enum `
 * ` msf auxiliary(snmp_enum) > set RHOSTS 192.168.78.2 `
 * ` msf auxiliary(snmp_enum) > exploit `
-~~~
+
 ~~~javascript
  ...
 *  [*] System information:
